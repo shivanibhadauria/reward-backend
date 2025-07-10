@@ -16,6 +16,7 @@ const user = new mongoose.Schema({
   },
   email: {
     type: String,
+    
   },
   productPurchased: {
     type: String,
