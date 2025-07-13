@@ -11,7 +11,8 @@ require("./connection/connection");
 
 app.use(cors(
   {
-    origin: "*",
+    origin: ['https://your-frontend.vercel.app'],
+  credentials: true
   }
 ));
 app.use(express.json());
