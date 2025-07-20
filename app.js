@@ -5,8 +5,10 @@ const dotenv = require("dotenv");
 const contact = require("./routes/contact");
 const adminAuthRoutes = require('./routes/adminAuth');
 
+
 dotenv.config();
 require("./connection/connection");
+
 
 
 app.use(cors(

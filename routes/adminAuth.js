@@ -1,9 +1,11 @@
+const cookieParser = require('cookie-parser');
 const express = require('express');
 const Admin = require('../models/admin');
 const bcrypt = require('bcryptjs');
 const jwt = require('jsonwebtoken');
 const router = express.Router();
 const crypto = require('crypto');
+
 const sendMail = require('../utils/mailer');
 
 
@@ -138,6 +140,9 @@ router.post('/login', async (req, res) => {
         console.log("🔑 Password match:", isMatch);
 
         const token = jwt.sign({id: exist._id}, process.env.JWT_SECRET, {expiresIn: "1h"});
+
+        res.cookie('token', token, {httpOnly: true, secure:true, sameSite:"none",  maxAge: 7 * 24 * 60 * 60 * 1000});
+
         console.log("exist._id:", exist._id);
         console.log("JWT_SECRET:", process.env.JWT_SECRET);
         console.log("🔑 Token:", token);
