@@ -13,7 +13,7 @@ require("./connection/connection");
 
 app.use(cors(
   {
-    origin: ["https://whatsappmsgsender-3lyq.vercel.app",
+    origin: ["https://whatsappmsgsender.vercel.app",
       "http://localhost:3000"
     ],
   credentials: true
