@@ -85,4 +85,47 @@ router.get("/",  authMiddleware,  async (req, res) => {
   }
 });
 
+router.put("/:id", authMiddleware, async (req, res) => {
+  
+  const id = req.params.id;
+  const { name, email} = req.body;
+
+  try {
+    const updatedContact = await contact.findByIdAndUpdate(
+      id,
+      { name, email },
+      { new: true }
+    );
+
+    if (!updatedContact) {
+      return res.status(404).json({ message: "Contact not found" });
+    }
+    res.json({massage: "Contact updated successfully", contact: updatedContact});
+
+  } catch (error) {
+    console.log(error);
+    res.status(500).json({ message: "Error updating contact" });
+  }
+})
+
+router.delete("/:id", authMiddleware, async (req, res) => {
+  const id = req.params.id;
+
+  try {
+    const deletedContact = await contact.findByIdAndDelete(id);
+
+    if (!deletedContact) {
+      return res.status(404).json({ message: "Contact not found" });
+    }
+
+    res.json({ message: "Contact deleted successfully" });
+  }
+  catch (error) {
+    console.log(error);
+    res.status(500).json({ message: "Error deleting contact" });
+  }
+})
+
+
+
 module.exports = router;
